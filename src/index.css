@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  /* Concrete Theme Colors */
+  --color-dash-bg: #808285; /* Darker Concrete Base */
+  --color-dash-surface: #e5e7eb; /* Polished Concrete */
+  --color-dash-ink: #1f2937; /* Rebar Dark */
+  --color-dash-line: #4b5563; /* Mortar / Joints */
+  --color-dash-accent: #2563eb;
+  --color-dash-success: #065f46;
+  --color-dash-info: #1e3a8a;
+  --color-dash-warning: #92400e;
+  --color-dash-error: #991b1b;
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-[#cbd5e1] text-dash-ink relative;
+  }
+}
+
+@layer utilities {
+  .concrete-layer {
+    background-color: #f1f5f9;
+    background-image: 
+      /* Stippling / Dots */
+      radial-gradient(circle at 2px 2px, rgba(0,0,0,0.15) 1px, transparent 0),
+      /* Concrete CAD Hatch Pattern */
+      url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='rgba(75,85,99,0.1)' stroke='%234b5563' stroke-width='0.8' opacity='0.45'%3E%3Cpath d='M10 10 L15 5 L20 12 Z' /%3E%3Cpath d='M60 40 L65 35 L70 42 Z' /%3E%3Cpath d='M100 20 L105 15 L110 22 Z' /%3E%3Cpath d='M30 80 L35 75 L40 82 Z' /%3E%3Cpath d='M85 95 L90 90 L95 97 Z' /%3E%3Cpath d='M40 10 L45 15' /%3E%3Cpath d='M10 50 L15 55' /%3E%3Cpath d='M80 60 L85 65' /%3E%3Cpath d='M110 80 L115 85' /%3E%3C/g%3E%3C/svg%3E");
+    background-size: 4px 4px, 120px 120px;
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .blueprint-grid {
+    background-size: 32px 32px;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.1) 1px, transparent 0);
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .scan-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--color-dash-accent), transparent);
+    position: absolute;
+    top: -2px;
+    left: 0;
+    animation: scan 3s linear infinite;
+    opacity: 0.5;
+  }
+
+  @keyframes scan {
+    0% { top: 0% }
+    100% { top: 100% }
+  }
+
+  .login-concrete-cube {
+    position: relative;
+    border-color: #000;
+  }
+
+  .concrete-texture {
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"),
+      radial-gradient(circle at 50% 50%, transparent, rgba(0,0,0,0.1));
+    background-blend-mode: multiply;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
+
+@layer components {
+  .metric-card {
+    @apply bg-white p-5 rounded-none border-2 border-dash-line shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] relative overflow-hidden;
+  }
+  
+  .input-label {
+    @apply text-[11px] font-bold uppercase text-slate-700 mb-2 block tracking-wider;
+  }
+  
+  .dash-input {
+    @apply w-full p-2.5 bg-white border-2 border-dash-line rounded-none font-mono text-sm focus:outline-none focus:border-dash-accent focus:ring-4 focus:ring-dash-accent/10 focus:shadow-[0_0_20px_rgba(37,99,235,0.15)] transition-all duration-300 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.05)];
+  }
+}
